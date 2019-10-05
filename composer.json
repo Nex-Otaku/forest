@@ -1,0 +1,16 @@
+{
+    "name": "nex-otaku/forest",
+    "description": "Forest Social Network",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nex Otaku",
+            "email": "nex-otaku@yandex.ru"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">= 7.2"
+    }
+}
