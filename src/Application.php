@@ -16,27 +16,35 @@ class Application
         if ($route === '/') {
             return $this->actionMainPage();
         }
-        $this->setNotFoundHeader();
-        return $this->notFoundResponse();
+        if ($route === '/feed') {
+            return $this->actionNews();
+        }
+        return $this->actionNotFound();
     }
 
-    private function notFoundResponse(): string
-    {
-        return 'Ой. Страница не найдена. Нам очень жаль :(';
-    }
-
-    private function getRoute(): string
-    {
-        return $_SERVER['REQUEST_URI'];
-    }
-
-    private function actionMainPage()
+    private function actionMainPage(): string
     {
         return 'Главная страница';
+    }
+
+    private function actionNews(): string
+    {
+        return 'Общая лента новостей';
+    }
+
+    private function actionNotFound(): string
+    {
+        $this->setNotFoundHeader();
+        return 'Ой. Страница не найдена. Нам очень жаль :(';
     }
 
     private function setNotFoundHeader(): void
     {
         http_response_code(404);
+    }
+
+    private function getRoute(): string
+    {
+        return $_SERVER['REQUEST_URI'];
     }
 }
