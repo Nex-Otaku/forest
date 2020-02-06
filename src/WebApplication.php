@@ -2,7 +2,7 @@
 
 namespace app;
 
-class Application
+class WebApplication
 {
     public function run(): void
     {

@@ -1,9 +1,9 @@
 <?php
 
-use app\Application;
+use app\WebApplication;
 
 // PSR-4 Autoloader.
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$app = new Application();
+$app = new WebApplication();
 $app->run();
