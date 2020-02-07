@@ -1,4 +1,6 @@
-CREATE TABLE IF NOT EXISTS `user` (
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
        `id` VARCHAR(36) NOT NULL,
        `login` VARCHAR(255) NOT NULL,
        `password_hash` VARCHAR(255) NOT NULL,
