@@ -1,14 +1,14 @@
 #!/usr/bin/env php
 <?php
 
+use app\Config;
 use app\ConsoleApplication;
 
 // PSR-4 Autoloader.
 require_once __DIR__ . '/../vendor/autoload.php';
 
 try {
-    $config = (require __DIR__ . '/../config/main.php');
-    $application = new ConsoleApplication($config);
+    $application = new ConsoleApplication(new Config());
     $exitCode = $application->run();
 } catch (InvalidConfigException $exception) {
     echo $exception->getMessage() . PHP_EOL;
