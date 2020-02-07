@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS `user` (
        `last_name` VARCHAR(255) NOT NULL,
        `full_name` VARCHAR(255) NOT NULL,
        PRIMARY KEY (`id`),
-       UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE)
+       UNIQUE INDEX `login_UNIQUE` (`login` ASC))
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8mb4;
