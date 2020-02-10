@@ -30,7 +30,11 @@ class ConsoleApplication
     {
         $console = new Console();
         [$route, $params] = $console->resolve();
-        $this->runAction($route, $params);
+        if ($route === '') {
+            $this->listActions();
+        } else {
+            $this->runAction($route, $params);
+        }
         return 0;
     }
 
@@ -101,5 +105,11 @@ class ConsoleApplication
         foreach ($out as $line) {
             echo "{$line}\n";
         }
+    }
+
+    private function listActions(): void
+    {
+        echo "Доступные действия:\n";
+        echo "\tinstall\n";
     }
 }
