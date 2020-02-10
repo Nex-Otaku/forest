@@ -73,8 +73,6 @@ class User
                     'last_name' => $this->lastName,
                     'full_name' => $this->fullName,
                     'password_hash' => $this->passwordHash,
-                ], [
-                    'id' => $this->id,
                 ]);
         }
     }
