@@ -18,6 +18,7 @@
     "require": {
         "php": ">= 7.2",
         "twig/twig": "^2.11",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "ramsey/uuid": "3.4.1"
     }
 }
