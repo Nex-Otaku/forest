@@ -2,8 +2,11 @@
 
 namespace app;
 
+use app\actions\DeleteUser;
+use app\actions\RegisterUser;
 use app\components\console\Console;
 use app\components\console\ShellCommand;
+use app\components\db\Db;
 
 /**
  * Class ConsoleApplication
@@ -21,6 +24,7 @@ class ConsoleApplication
     public function __construct(Config $config)
     {
         $this->config = $config;
+        Db::setConfig($config);
     }
 
     /**
@@ -58,6 +62,11 @@ class ConsoleApplication
 
         if ($route === 'install') {
             $this->installDb();
+            return;
+        }
+
+        if ($route === 'create-test-user') {
+            $this->createTestUser();
             return;
         }
 
@@ -111,5 +120,19 @@ class ConsoleApplication
     {
         echo "Доступные действия:\n";
         echo "\tinstall\n";
+    }
+
+    private function createTestUser(): void
+    {
+        $action = new DeleteUser('test');
+        $action->execute();
+
+        $action = new RegisterUser(
+            'test',
+            'Марат',
+            'Бочкин',
+            '123'
+        );
+        $action->execute();
     }
 }

@@ -47,12 +47,23 @@ class User
     ): self
     {
         return new self(
-        null,
+            null,
             $login,
             $firstName,
             $lastName,
             $hash
-            );
+        );
+    }
+
+    public static function fromDb(array $record): self
+    {
+        return new self(
+            $record['id'],
+            $record['login'],
+            $record['first_name'],
+            $record['last_name'],
+            $record['password_hash']
+        );
     }
 
     public function save(): void
@@ -78,5 +89,23 @@ class User
                     'password_hash' => $this->passwordHash,
                 ]);
         }
+    }
+
+    public static function findByLogin(string $login): ?self
+    {
+        $record = Db::selectRow('user', [
+            'login' => $login,
+        ]);
+        if (!is_array($record)) {
+            return null;
+        }
+        return self::fromDb($record);
+    }
+
+    public function delete(): void
+    {
+        Db::delete('user', [
+            'id' => $this->id,
+        ]);
     }
 }

@@ -10,6 +10,8 @@ use app\records\User;
  */
 class RegisterUser
 {
+    private $user;
+
     public function __construct(
         string $login,
         string $firstName,
@@ -17,8 +19,12 @@ class RegisterUser
         string $password
     )
     {
-        $user = User::fromRegistration($login, $firstName, $lastName, $this->hash($password));
-        $user->save();
+        $this->user = User::fromRegistration($login, $firstName, $lastName, $this->hash($password));
+    }
+
+    public function execute(): void
+    {
+        $this->user->save();
     }
 
     /**

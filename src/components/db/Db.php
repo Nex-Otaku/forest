@@ -71,4 +71,49 @@ class Db
         }
         return self::$config;
     }
+
+    public static function selectRow(string $table, array $where = []): ?array
+    {
+        $wherePart = self::buildWhere($where);
+        $row = self::getPdo()
+            ->query("SELECT * FROM `{$table}` {$wherePart}")
+            ->fetch(PDO::FETCH_ASSOC);
+        if ($row === false) {
+            // Если результат пустой, PDO возвращает "false".
+            return null;
+        }
+        return $row;
+    }
+
+    public static function delete(string $table, array $where = []): void
+    {
+        $wherePart = self::buildWhere($where);
+        self::exec("DELETE FROM {$table} {$wherePart}", []);
+    }
+
+    private static function buildWhere(array $where): string
+    {
+        $wherePart = '';
+
+        if (count($where) !== 0) {
+            $conditions = [];
+            foreach ($where as $key => $value) {
+                if (is_int($value)) {
+                    $quotedValue = $value;
+                }
+                if (is_string($value)) {
+                    $quotedValue = self::getPdo()->quote($value);
+                }
+                if (!is_int($value) && !is_string($value)) {
+                    $dumpValue = print_r($value, true);
+                    throw new \LogicException("Неподдерживаемый тип данных: {$dumpValue}");
+                }
+                $conditions[]= "`{$key}`={$quotedValue}";
+            }
+            $conditionsCombined = implode(' AND ', $conditions);
+            $wherePart = "WHERE {$conditionsCombined}";
+        }
+
+        return $wherePart;
+    }
 }
