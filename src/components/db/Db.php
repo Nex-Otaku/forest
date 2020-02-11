@@ -13,6 +13,8 @@ class Db
 {
     private static $config;
 
+    private static $pdo;
+
     public static function setConfig(Config $config)
     {
         self::$config = $config;
@@ -51,9 +53,15 @@ class Db
 
     private static function getPdo(): PDO
     {
-        $config = self::getConfig();
-        $dsn = "mysql:host={$config->dbHost};port={$config->dbPort};dbname={$config->dbName}";
-        return new PDO($dsn, $config->dbUsername, $config->dbPassword);
+        if (self::$pdo === null) {
+            $config = self::getConfig();
+            $dsn = "mysql:host={$config->dbHost};port={$config->dbPort};dbname={$config->dbName}";
+            $pdo = new PDO($dsn, $config->dbUsername, $config->dbPassword);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$pdo = $pdo;
+        }
+
+        return self::$pdo;
     }
 
     private static function getConfig(): Config
