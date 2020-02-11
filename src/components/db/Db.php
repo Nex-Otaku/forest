@@ -20,26 +20,24 @@ class Db
 
     public static function insert(string $table, array $fields): void
     {
-        $pdoSet = self::pdoSet($fields);
+        $pdoSet = self::pdoSet(array_keys($fields));
         self::exec("INSERT INTO {$table} SET {$pdoSet}", $fields);
     }
 
     public static function update(string $table, array $fields, array $where = []): void
     {
-
+        // TODO
     }
 
-    private static function pdoSet(array $fields): string
+    private static function pdoSet(array $fieldNames): string
     {
-        if (count($fields) === 0) {
+        if (count($fieldNames) === 0) {
             throw new \LogicException('Массив полей не может быть пустым');
         }
         $set = '';
-        $values = array();
-        foreach ($fields as $key => $field) {
-            $escapedField = str_replace('`', '``', $field);
-            $set .= '`' . $escapedField . '`' . "=:{$field}, ";
-            $values[$field] = $source[$field];
+        foreach ($fieldNames as $fieldName) {
+            $escapedField = str_replace('`', '``', $fieldName);
+            $set .= "`{$escapedField}`=:{$fieldName}, ";
         }
         return substr($set, 0, -2);
     }
@@ -54,9 +52,8 @@ class Db
     private static function getPdo(): PDO
     {
         $config = self::getConfig();
-        // TODO
-        $dsn = "";
-        return new PDO($dsn,$user,$pass,$options);
+        $dsn = "mysql:host={$config->dbHost};port={$config->dbPort};dbname={$config->dbName}";
+        return new PDO($dsn, $config->dbUsername, $config->dbPassword);
     }
 
     private static function getConfig(): Config
