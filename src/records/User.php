@@ -2,6 +2,9 @@
 
 namespace app\records;
 
+use app\components\db\Db;
+use app\components\id\Id;
+
 /**
  * Class User
  * @package app\records
