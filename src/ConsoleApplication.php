@@ -120,6 +120,7 @@ class ConsoleApplication
     {
         echo "Доступные действия:\n";
         echo "\tinstall\n";
+        echo "\tcreate-test-user\n";
     }
 
     private function createTestUser(): void
