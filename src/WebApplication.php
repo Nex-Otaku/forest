@@ -63,7 +63,6 @@ class WebApplication
     {
         $formData = $this->getPostData('registrationForm');
 
-//        var_dump($formData);
         if (empty($formData)) {
             return $this->errorResponse('Не заполнены данные формы.', 400);
         }
