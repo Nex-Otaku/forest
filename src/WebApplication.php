@@ -3,6 +3,7 @@
 namespace app;
 
 use app\actions\RegisterUser;
+use app\components\twig\Twig;
 
 class WebApplication
 {
@@ -29,7 +30,7 @@ class WebApplication
 
     private function actionMainPage(): string
     {
-        return 'Главная страница';
+        return $this->render('main-page', ['name' => 'Fabien']);
     }
 
     private function actionNews(): string
@@ -104,5 +105,10 @@ class WebApplication
     private function setStatusCode(int $code): void
     {
         http_response_code($code);
+    }
+
+    private function render(string $templateName, array $params = []): string
+    {
+        return (new Twig())->render($templateName, $params);
     }
 }
