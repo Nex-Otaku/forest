@@ -41,13 +41,13 @@ class WebApplication
     private function actionNotFound(): string
     {
         $this->setNotFoundHeader();
-        return 'Ой. Страница не найдена. Нам очень жаль :(';
+        return $this->errorResponse('Ой. Страница не найдена. Нам очень жаль :(');
     }
 
     private function errorResponse(string $message, int $code = 200): string
     {
         $this->setStatusCode($code);
-        return $message;
+        return $this->render('error-page', ['message' => $message]);
     }
 
     private function setNotFoundHeader(): void
@@ -65,7 +65,7 @@ class WebApplication
         $formData = $this->getPostData('registrationForm');
 
         if (empty($formData)) {
-            return $this->errorResponse('Не заполнены данные формы.', 400);
+            return $this->render('registration-page');
         }
 
         if (!empty($formData)) {

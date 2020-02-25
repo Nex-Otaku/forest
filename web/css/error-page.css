@@ -20,12 +20,7 @@ body, html {
     flex-direction: column;
 }
 
-.page-title {
-    display: flex;
-    justify-content: center;
-}
-
-.form-title {
+.flex-centered {
     display: flex;
     justify-content: center;
 }

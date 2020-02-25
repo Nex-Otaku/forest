@@ -1,0 +1,22 @@
+{% extends "layout.twig" %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/error-page.css">
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="page-wrapper">
+        <div class="page-row">
+            <div class="page-central-column">
+                <div class="flex-centered"><h1>Упс</h1></div>
+                <div class="flex-centered"><h2>Произошла ошибка:</h2></div>
+                <p>{{ message }}</p>
+                <div class="flex-centered">
+                    <p><a href="/">Вернуться на главную страницу</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
