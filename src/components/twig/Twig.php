@@ -12,11 +12,15 @@ use app\components\environment\Environment as AppEnvironment;
  */
 class Twig
 {
+    private $isDevelopmentMode = true;
+
     public function render(string $templateName, array $params = []): string
     {
         $loader = new FilesystemLoader(AppEnvironment::getTemplatesFolder());
         $twig = new TwigEnvironment($loader, [
-            'cache' => AppEnvironment::getCacheFolder(),
+            'cache' => $this->isDevelopmentMode
+                ? false
+                : AppEnvironment::getCacheFolder(),
         ]);
 
         try {
