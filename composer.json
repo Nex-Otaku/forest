@@ -19,6 +19,7 @@
         "php": ">= 7.2",
         "twig/twig": "^2.11",
         "ext-pdo": "*",
-        "ramsey/uuid": "3.4.1"
+        "ramsey/uuid": "3.4.1",
+        "plasticbrain/php-flash-messages": "^1.0"
     }
 }
