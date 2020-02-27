@@ -10,7 +10,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 try {
     $application = new ConsoleApplication(new Config());
     $exitCode = $application->run();
-} catch (InvalidConfigException $exception) {
+} catch (\Exception $exception) {
     echo $exception->getMessage() . PHP_EOL;
     $exitCode = $exception->getCode();
 }

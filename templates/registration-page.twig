@@ -11,36 +11,32 @@
         <div class="page-row">
             <div class="page-central-column">
                 <div class="page-title"><h1>Forest</h1></div>
-                <div class="form-title"><h2>## Content ##</h2></div>
-                <form class="pure-form pure-form-aligned">
+                <div class="form-title"><h2>Регистрация</h2></div>
+                <form class="pure-form pure-form-aligned" method="post">
                     <fieldset>
                         <div class="pure-control-group">
-                            <label for="aligned-name">Username</label>
-                            <input id="aligned-name" type="text" placeholder="Username">
-                            <span class="pure-form-message-inline">This is a required field.</span>
+                            <label for="aligned-username">Логин</label>
+                            <input id="aligned-username" type="text" placeholder="your_name" name="registrationForm[login]" value="{{ username|escape('html_attr') }}">
+                            <span class="pure-form-message-inline">Только английские буквы.</span>
                         </div>
 
                         <div class="pure-control-group">
-                            <label for="aligned-password">Password</label>
-                            <input id="aligned-password" type="password" placeholder="Password">
+                            <label for="aligned-password">Пароль</label>
+                            <input id="aligned-password" type="password" placeholder="Пароль" name="registrationForm[password]">
                         </div>
 
                         <div class="pure-control-group">
-                            <label for="aligned-email">Email Address</label>
-                            <input id="aligned-email" type="email" placeholder="Email Address">
+                            <label for="aligned-firstname">Имя</label>
+                            <input id="aligned-firstname" type="text" placeholder="Ваше имя" name="registrationForm[first_name]" value="{{ first_name|escape('html_attr') }}">
                         </div>
 
                         <div class="pure-control-group">
-                            <label for="aligned-foo">Supercalifragilistic Label</label>
-                            <input id="aligned-foo" type="text" placeholder="Enter something here...">
+                            <label for="aligned-lastname">Фамилия</label>
+                            <input id="aligned-lastname" type="text" placeholder="Ваша фамилия" name="registrationForm[last_name]" value="{{ last_name|escape('html_attr') }}">
                         </div>
 
                         <div class="pure-controls">
-                            <label for="aligned-cb" class="pure-checkbox">
-                                <input id="aligned-cb" type="checkbox"> I've read the terms and conditions
-                            </label>
-
-                            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+                            <button type="submit" class="pure-button pure-button-primary">Зарегистрироваться</button>
 
                             <a href="/">Войти</a>
                         </div>

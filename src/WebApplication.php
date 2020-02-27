@@ -3,10 +3,16 @@
 namespace app;
 
 use app\actions\RegisterUser;
+use app\components\db\Db;
 use app\components\twig\Twig;
 
 class WebApplication
 {
+    public function __construct(Config $config)
+    {
+        Db::setConfig($config);
+    }
+
     public function run(): void
     {
         $response = $this->runAction();
@@ -57,7 +63,7 @@ class WebApplication
 
     private function getRoute(): string
     {
-        return $_SERVER['REQUEST_URI'];
+        return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
 
     private function actionRegister(): string
