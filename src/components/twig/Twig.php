@@ -14,6 +14,8 @@ class Twig
 {
     private $isDevelopmentMode = true;
 
+    private $globals = [];
+
     public function render(string $templateName, array $params = []): string
     {
         $loader = new FilesystemLoader(AppEnvironment::getTemplatesFolder());
@@ -23,6 +25,10 @@ class Twig
                 : AppEnvironment::getCacheFolder(),
         ]);
 
+        foreach ($this->globals as $key => $value) {
+            $twig->addGlobal($key, $value);
+        }
+
         try {
             $twigFilename = "{$templateName}.twig";
             $result = $twig->render($twigFilename, $params);
@@ -31,5 +37,11 @@ class Twig
         }
 
         return $result;
+    }
+
+    public function addGlobal(string $key, $value): self
+    {
+        $this->globals[$key] = $value;
+        return $this;
     }
 }

@@ -4,12 +4,15 @@ namespace app;
 
 use app\actions\RegisterUser;
 use app\components\db\Db;
+use app\components\flashmessage\FlashMessage;
+use app\components\session\Session;
 use app\components\twig\Twig;
 
 class WebApplication
 {
     public function __construct(Config $config)
     {
+        $this->bootstrap();
         Db::setConfig($config);
     }
 
@@ -83,6 +86,8 @@ class WebApplication
                     $formData['password']
                 );
                 $action->execute();
+
+                (new FlashMessage())->success('Вы зарегистрированы!');
             } catch (\Exception $exception) {
                 return $this->errorResponse($exception->getMessage());
             }
@@ -115,6 +120,13 @@ class WebApplication
 
     private function render(string $templateName, array $params = []): string
     {
-        return (new Twig())->render($templateName, $params);
+        return (new Twig())
+            ->addGlobal('flash', new FlashMessage())
+            ->render($templateName, $params);
+    }
+
+    private function bootstrap(): void
+    {
+        (new Session())->bootstrap();
     }
 }
